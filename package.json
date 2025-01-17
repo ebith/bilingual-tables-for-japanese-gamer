@@ -1,0 +1,7 @@
+{
+  "type": "module",
+  "dependencies": {
+    "fast-xml-parser": "^4.5.1",
+    "jsonrepair": "^3.11.2"
+  }
+}
