@@ -12,8 +12,10 @@ const en = parser.parse(enXml)
 const enObj = Object.fromEntries(en.TextFile.Texts.TextRepresentation.map((e) => [e.TextId, e]))
 
 const table = ja.TextFile.Texts.TextRepresentation.flatMap((e) => {
-  if (e.Text.length > 30) return []
-  return [[enObj[e.TextId]?.Text, e.Text]]
+  if (e.Text.length > 30 || e.Text === '' || Number.isInteger(e.Text) || !enObj[e.TextId]) return []
+  if (/(\{string\}.+\{\/string\})/.test(e.Text)) return []
+
+  return [[enObj[e.TextId].Text, e.Text]]
 })
 
 await writeFile('./dist/dragon-age-inquisition.json', JSON.stringify(table))
